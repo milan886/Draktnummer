@@ -1,1 +1,147 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<title>Manchester United Draktnummer Quiz 2025/26</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #8b0000, #000);
+    color: #fff;
+    margin: 0;
+}
+.container {
+    max-width: 750px;
+    margin: 40px auto;
+    background: #111;
+    padding: 30px;
+    border-radius: 12px;
+}
+h1 {
+    text-align: center;
+    color: #ff1a1a;
+}
+.question {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+.options button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 14px;
+    font-size: 1em;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.options button:hover {
+    background: #ff1a1a;
+}
+.correct { background: #1e7e34 !important; }
+.wrong { background: #b21f2d !important; }
+#nextBtn {
+    display: none;
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: #ff1a1a;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1em;
+}
+#progress {
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔴 United Draktnummer Quiz 2025/26</h1>
+    <div id="question" class="question"></div>
+    <div id="options" class="options"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Neste</button>
+    <div id="progress"></div>
+</div>
+
+<script>
+const questions = [
+ {q:"Hvilket draktnummer har Altay Bayındır?",a:["1","12","22","24"],c:0},
+ {q:"Hvilket draktnummer har Diogo Dalot?",a:["2","3","12","20"],c:0},
+ {q:"Hvilket draktnummer har Noussair Mazraoui?",a:["2","3","15","29"],c:1},
+ {q:"Hvilket draktnummer har Matthijs de Ligt?",a:["4","5","6","15"],c:0},
+ {q:"Hvilket draktnummer har Harry Maguire?",a:["4","5","6","15"],c:1},
+ {q:"Hvilket draktnummer har Lisandro Martínez?",a:["4","6","12","23"],c:1},
+ {q:"Hvilket draktnummer har Mason Mount?",a:["7","8","10","18"],c:0},
+ {q:"Hvilket draktnummer har Bruno Fernandes?",a:["8","10","18","21"],c:0},
+ {q:"Hvilket draktnummer har Rasmus Højlund?",a:["9","11","17","19"],c:0},
+ {q:"Hvilket draktnummer har Matheus Cunha?",a:["9","10","11","19"],c:1},
+ {q:"Hvilket draktnummer har Joshua Zirkzee?",a:["9","10","11","17"],c:2},
+ {q:"Hvilket draktnummer har Tyrell Malacia?",a:["3","12","23","25"],c:1},
+ {q:"Hvilket draktnummer har Patrick Dorgu?",a:["12","13","15","18"],c:1},
+ {q:"Hvilket draktnummer har Leny Yoro?",a:["4","5","15","23"],c:2},
+ {q:"Hvilket draktnummer har Amad Diallo?",a:["11","16","19","21"],c:1},
+ {q:"Hvilket draktnummer har Alejandro Garnacho?",a:["7","11","17","49"],c:2},
+ {q:"Hvilket draktnummer har Casemiro?",a:["5","6","18","21"],c:2},
+ {q:"Hvilket draktnummer har Bryan Mbeumo?",a:["17","18","19","21"],c:2},
+ {q:"Hvilket draktnummer har Antony?",a:["11","18","21","25"],c:2},
+ {q:"Hvilket draktnummer har Tom Heaton?",a:["1","12","22","30"],c:2},
+ {q:"Hvilket draktnummer har Luke Shaw?",a:["3","12","23","25"],c:2},
+ {q:"Hvilket draktnummer har André Onana?",a:["1","22","24","25"],c:2},
+ {q:"Hvilket draktnummer har Manuel Ugarte?",a:["18","21","24","25"],c:3},
+ {q:"Hvilket draktnummer har Ayden Heaven?",a:["24","25","26","29"],c:2},
+ {q:"Hvilket draktnummer har Benjamin Šeško?",a:["9","19","30","32"],c:2},
+ {q:"Hvilket draktnummer har Chido Obi?",a:["30","31","32","36"],c:2},
+ {q:"Hvilket draktnummer har Tyler Fredricson?",a:["32","33","35","37"],c:1},
+ {q:"Hvilket draktnummer har Diego León?",a:["33","34","35","36"],c:2},
+ {q:"Hvilket draktnummer har Ethan Wheatley?",a:["32","35","36","37"],c:2},
+ {q:"Hvilket draktnummer har Kobbie Mainoo?",a:["36","37","39","44"],c:1}
+];
+
+let i=0,score=0,locked=false;
+const qEl=document.getElementById("question");
+const optEl=document.getElementById("options");
+const nextBtn=document.getElementById("nextBtn");
+const prog=document.getElementById("progress");
+
+function loadQ(){
+ locked=false; nextBtn.style.display="none"; optEl.innerHTML="";
+ qEl.textContent=questions[i].q;
+ prog.textContent=`Spørsmål ${i+1} / ${questions.length}`;
+ questions[i].a.forEach((o,idx)=>{
+  const b=document.createElement("button");
+  b.textContent=o;
+  b.onclick=()=>check(b,idx);
+  optEl.appendChild(b);
+ });
+}
+function check(btn,idx){
+ if(locked)return; locked=true;
+ const c=questions[i].c;
+ optEl.children[c].classList.add("correct");
+ if(idx===c)score++; else btn.classList.add("wrong");
+ nextBtn.style.display="block";
+}
+function nextQuestion(){
+ i++;
+ if(i<questions.length)loadQ();
+ else{
+  qEl.textContent="🎉 Ferdig!";
+  optEl.innerHTML=`<p>Du fikk <strong>${score}</strong> av <strong>${questions.length}</strong> riktige.</p>
+  <button onclick="location.reload()">Spill igjen</button>`;
+  nextBtn.style.display="none";
+  prog.textContent="";
+ }
+}
+loadQ();
+</script>
+
+</body>
+</html>
 
